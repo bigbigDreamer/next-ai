@@ -6,18 +6,16 @@ const apiKey = process.env.OPENAI_API_KEY || ''
 const baseUrl = ((process.env.OPENAI_API_BASE_URL) || 'https://api.openai.com').trim().replace(/\/$/, '')
 const model = process.env.MODEL || 'gpt-3.5-turbo'
 
-console.log(process.env, 'OOOLLL')
 export async function POST(req: NextRequest) {
     const api = new ChatGPTAPI({
         apiKey,
-        apiBaseUrl: baseUrl,
+        apiBaseUrl: `${baseUrl}/v1`,
         completionParams: {
-            model
+            model: model
         }
     })
     try {
         const reqJson = await req.json()
-        console.log(reqJson, 'req')
         const result = await api.sendMessage(reqJson.payload);
         return NextResponse.json({ result  })
         // @ts-ignore

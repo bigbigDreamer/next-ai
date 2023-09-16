@@ -8,8 +8,6 @@ function useValidate() {
         if(response.ok) {
             const resJson = await response.json();
 
-            console.log(resJson, 'opopop')
-
             return resJson.status;
         }
 

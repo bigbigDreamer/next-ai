@@ -3,7 +3,6 @@ import {useCallback} from "react";
 
 function useGpt() {
     const chat = useCallback(async (value: string) => {
-        console.log(value, "开始 chat")
         const controller = new AbortController()
         try {
             const response = await fetch('/api/gpt', {
@@ -13,7 +12,6 @@ function useGpt() {
                 }),
                 signal: controller.signal,
             })
-            console.log(response);
 
             const resJson = await response.json();
             if(!response.ok) {

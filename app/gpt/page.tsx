@@ -80,7 +80,6 @@ const Gpt: FC = () => {
                 }))
             })
             .catch((error) => {
-                console.log(error, "error")
                 setMessageList(produce(draft => {
                     draft.forEach(item => {
                         if(typeof item.message !== 'string') {

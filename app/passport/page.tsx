@@ -22,8 +22,6 @@ const Passport: FC = () => {
 
     const handleChange: EventHandler<any> = useCallback(debounce((e) => {
         const value = e.target.value;
-        console.log(value)
-
         valid(value)
             .then(res => {
                 if(res) {
