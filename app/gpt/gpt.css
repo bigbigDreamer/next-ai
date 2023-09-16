@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.chat-header {
+    @apply w-[100%] h-[50px] shadow-lg flex justify-center items-center font-bold text-[#272727];
+}
+
+.chat-container {
+    @apply w-[100%] p-[16px] h-[calc(100vh-135px)] overflow-auto;
+}
+
+.chat-footer {
+    @apply w-[100%] fixed bottom-0 h-[85px] shadow-inner flex items-center justify-center p-[16px];
+}

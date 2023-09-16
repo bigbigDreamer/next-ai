@@ -13,6 +13,14 @@ const config: Config = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      animation: {
+        logo_kinetics: "logo_kinetics 2.5s linear infinite normal forwards"
+      },
+      keyframes: {
+        logo_kinetics: {
+          "to": { transform: "rotate(360deg)" }
+        }
+      }
     },
   },
   plugins: [],
