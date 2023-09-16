@@ -7,7 +7,7 @@ export async function GET(req: NextRequest) {
     console.log(process.env, 'PWDPWD')
 
     await Promise.resolve();
-    if(pwd === process.env.PWD) {
+    if(pwd === process.env.AI_AUTH_PWD) {
         return NextResponse.json({ status: true  })
     } else {
         return NextResponse.json({ status: false  })
