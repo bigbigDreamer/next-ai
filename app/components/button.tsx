@@ -24,8 +24,8 @@ const Button: FC = () => {
     }
     return (
         <>
-            <Image className={`${up ? 'animate__backOutUp' : 'hidden'} animate__animated absolute top-[50%] mt-[150px]`} width={65} height={80} src={Rocket} alt="rocket" />
-            <div onClick={handleClick} className={`mt-[150px] text-[#597ef7] flex items-center justify-center w-[150px] p-[12px] rounded-[28px] pt-[6px] pb-[6px] border-[#adc6ff] border-solid border-[1px] ${up ? 'invisible' : 'visible'}`}>即刻出发</div>
+            <Image className={`${up ? 'animate__backOutUp' : 'hidden'} animate__animated absolute top-[50%] mt-[80px]`} width={65} height={80} src={Rocket} alt="rocket" />
+            <div onClick={handleClick} className={`mt-[80px] text-[#597ef7] flex items-center justify-center w-[150px] p-[12px] rounded-[28px] pt-[6px] pb-[6px] border-[#adc6ff] border-solid border-[1px] ${up ? 'invisible' : 'visible'}`}>即刻出发</div>
         </>
     )
 }

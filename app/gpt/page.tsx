@@ -8,14 +8,25 @@ import { Dna } from  'react-loader-spinner'
 import useWatchMessage from './use-watch-message'
 import useGpt from "@/app/gpt/use-gpt";
 import  { useRouter } from 'next/navigation'
+import Image from 'next/image'
+
+import  Zeus from '../assets/zeus.png'
+import God from '../assets/god.png'
+import Egg from '../assets/egg.webp'
 
 import  './gpt.css'
 
 type MessageList = {
     name: string;
     message: string | ReactNode;
-    role: 'sys' | 'user';
+    role: 'system' | 'user';
+    isEgg?: boolean;
 }[]
+
+const roleAvatar = {
+    system: <Image width={48} height={48} src={God} alt="1"/>,
+    user:  <Image width={48} height={48} src={Zeus} alt="1"/>,
+}
 
 const Gpt: FC = () => {
 
@@ -50,8 +61,20 @@ const Gpt: FC = () => {
                 message: value,
                 name: '宙斯'
             })
+            if(value === '1024') {
+                draft.push({
+                    role: 'system',
+                    message: (
+                        <div className="flex items-start flex-col">
+                            <Image className="rounded-[16px]" width={200} alt="1" height={400} src={Egg}/>
+                            <span className="mt-[4px] text-amber-500">彩蛋时刻！宙斯，视觉疲劳了吗？来放松一下吧！</span>
+                        </div>),
+                    isEgg: true,
+                    name: '阿波罗'
+                })
+            }
             draft.push({
-                role: 'sys',
+                role: 'system',
                 message: (
                     <div className="flex items-center">
                         <Dna
@@ -64,7 +87,7 @@ const Gpt: FC = () => {
                          />
                         思考中
                     </div>),
-                name: '阿波罗大人'
+                name: '阿波罗'
             })
         }))
         setLoading(true);
@@ -73,7 +96,7 @@ const Gpt: FC = () => {
                 console.log(res, "error")
                 setMessageList(produce(draft => {
                     draft.forEach(item => {
-                        if(typeof item.message !== 'string') {
+                        if(typeof item.message !== 'string' && !item.isEgg) {
                             item.message = res
                         }
                     })
@@ -82,7 +105,7 @@ const Gpt: FC = () => {
             .catch((error) => {
                 setMessageList(produce(draft => {
                     draft.forEach(item => {
-                        if(typeof item.message !== 'string') {
+                        if(typeof item.message !== 'string' && !item.isEgg) {
                             item.message = <div className="text-red-600">{error.error}</div>
                         }
                     })
@@ -91,24 +114,25 @@ const Gpt: FC = () => {
             .finally(() => {
                 setLoading(false);
                 setTimeout(() => {
-                    inputRef.current?.focus?.();
+                    // 自动聚焦对于移动端体验不好
+                    // inputRef.current?.focus?.();
                 }, 200)
             })
     };
     return (
         <div className="w-[100%] h-[100vh]">
-            <div className="chat-header">太阳神·阿波罗</div>
-            <Watermark content="AI GPT">
+            <div className="chat-header">{loading ? '正在输入中......' : '太阳神·阿波罗'}</div>
+            <Watermark content="圣·Olympia">
                 <div className="chat-container">
                     <List
                         locale={{ emptyText: '宙斯来聊聊吧，不要羞涩！' }}
                         itemLayout="horizontal"
                         dataSource={messageList}
-                        renderItem={({message, name}, index) => (
+                        renderItem={({message, name, role}, index) => (
                             <List.Item>
                                 <List.Item.Meta
                                     className={index === messageList.length -1  ? 'need-scroll-to-end' : ''}
-                                    avatar={<Avatar src={`https://xsgames.co/randomusers/avatar.php?g=pixel&key=${index}`} />}
+                                    avatar={<Avatar src={roleAvatar[role]} />}
                                     title={name}
                                     description={message}
                                 />
@@ -122,7 +146,7 @@ const Gpt: FC = () => {
                 <Input.Search
                     ref={inputRef}
                     key={loading ? Math.random() : undefined}
-                    placeholder="今天午饭吃什么呢？"
+                    placeholder="👋 说点什么吧！"
                     enterButton="发送"
                     size="large"
                     suffix={suffix}
