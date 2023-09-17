@@ -19,9 +19,7 @@ function useGpt() {
             if(!response.ok) {
                 return Promise.reject(resJson)
             }
-            if(!chatQueueId.current) {
-                chatQueueId.current = resJson.chatId
-            }
+            chatQueueId.current = resJson.chatId
 
             return resJson.result?.text
         } catch (e) {
