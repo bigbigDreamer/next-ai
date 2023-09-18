@@ -2,7 +2,7 @@ import {ChatGPTAPI, ChatGPTError} from "chatgpt";
 import { NextResponse, type NextRequest } from 'next/server'
 
 
-const apiKey = process.env.OPENAI_API_KEY || ''
+const apiKey = process.env.OPENAI_API_KEY || 'xxxxxx'
 const baseUrl = ((process.env.OPENAI_API_BASE_URL) || 'https://api.openai.com').trim().replace(/\/$/, '')
 const model = process.env.MODEL || 'gpt-3.5-turbo'
 const api = new ChatGPTAPI({
