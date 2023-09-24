@@ -10,14 +10,16 @@ const api = new ChatGPTAPI({
     apiBaseUrl: `${baseUrl}/v1`,
     completionParams: {
         model: model,
+        temperature: 0.5,
+        top_p: 0.8
     }
 })
 export async function POST(req: NextRequest) {
     try {
         const reqJson = await req.json()
-        const result = await api.sendMessage(reqJson.payload, reqJson.chatId ? { parentMessageId: reqJson.chatId, timeoutMs: 2 * 60 * 1000 } : {
-            timeoutMs: 2 * 60 * 1000
-    });
+        const result = await api.sendMessage(reqJson.payload, reqJson.chatId ? { parentMessageId: reqJson.chatId, timeoutMs: 20 * 60 * 1000 } : {
+            timeoutMs: 20 * 60 * 1000,
+        });
         return NextResponse.json({ result, chatId: result.id })
         // @ts-ignore
     } catch (err: ChatGPTError) {
